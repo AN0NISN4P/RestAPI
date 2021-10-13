@@ -18,7 +18,7 @@ namespace RestAPI.FileData
 
 		private IList<T> ReadData<T>(string s)
 		{
-			using (var jsonReader = File.OpenText(familiesFile))
+			using (var jsonReader = File.OpenText(s))
 			{
 				return JsonSerializer.Deserialize<List<T>>(jsonReader.ReadToEnd());
 			}
