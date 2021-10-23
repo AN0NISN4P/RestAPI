@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Models;
 using RestAPI.FileData;
 using RestAPI.Models;
@@ -15,13 +16,13 @@ namespace RestAPI.Data.Implementations
 			_fileContext = new();
 		}
 
-		public void NewFamily(Family newFamily)
+		public async Task NewFamilyAsync(Family newFamily)
 		{
 			_fileContext.Families.Add(newFamily);
 			_fileContext.SaveChanges();
 		}
 
-		public void RemoveFamily(string familyName)
+		public async Task RemoveFamilyAsync(string familyName)
 		{
 			Family family = _fileContext.Families.FirstOrDefault(f => f.Adults.First( ).LastName == familyName);
 			if (family == null)
@@ -33,21 +34,21 @@ namespace RestAPI.Data.Implementations
 			_fileContext.SaveChanges();
 		}
 
-		public Family GetFamily(string streetName, int houseNumber)
+		public async Task<Family> GetFamilyAsync(string streetName, int houseNumber)
 		{
 			Family family = _fileContext.Families.FirstOrDefault(f => f.StreetName == streetName && f.HouseNumber == houseNumber);
 			return family;
 		}
 
-		public IList<Family> GetFamily(string streetName)
+		public async Task<IList<Family>> GetFamilyAsync(string streetName)
 		{
 			IList<Family> families = _fileContext.Families.Where(f => f.StreetName == streetName).ToList();
 			return families;
 		}
-		public void UpdateFamily(Family updatedFamily)
+		public async Task UpdateFamilyAsync(Family updatedFamily)
 		{
 			// Get the old Family
-			Family oldFamily = GetFamily(updatedFamily.StreetName, updatedFamily.HouseNumber);
+			Family oldFamily = GetFamilyAsync(updatedFamily.StreetName, updatedFamily.HouseNumber).Result;
 			// Get Index in list of Family
 			int familyIdx = _fileContext.Families.IndexOf(oldFamily);
 			// Remove old Family
