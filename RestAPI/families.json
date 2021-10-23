@@ -1185,5 +1185,117 @@
       }
     ],
     "Pets": []
+  },
+  {
+    "StreetName": "string",
+    "HouseNumber": 0,
+    "Adults": [
+      {
+        "JobTitle": {
+          "JobTitle": "string",
+          "Salary": 0
+        },
+        "Id": 33330,
+        "FirstName": "Sander",
+        "LastName": "string",
+        "HairColor": "string",
+        "EyeColor": "string",
+        "Age": 0,
+        "Weight": 0,
+        "Height": 0,
+        "Sex": "string"
+      }
+    ],
+    "Children": [
+      {
+        "Interests": [
+          {
+            "Type": "string",
+            "Description": "string"
+          }
+        ],
+        "Pets": [
+          {
+            "Id": 0,
+            "Species": "string",
+            "Name": "string",
+            "Age": 0
+          }
+        ],
+        "Id": 0,
+        "FirstName": "string",
+        "LastName": "string",
+        "HairColor": "string",
+        "EyeColor": "string",
+        "Age": 0,
+        "Weight": 0,
+        "Height": 0,
+        "Sex": "string"
+      }
+    ],
+    "Pets": [
+      {
+        "Id": 0,
+        "Species": "string",
+        "Name": "string",
+        "Age": 0
+      }
+    ]
+  },
+  {
+    "StreetName": "string",
+    "HouseNumber": 1,
+    "Adults": [
+      {
+        "JobTitle": {
+          "JobTitle": "string",
+          "Salary": 0
+        },
+        "Id": 330,
+        "FirstName": "Seb",
+        "LastName": "string",
+        "HairColor": "string",
+        "EyeColor": "string",
+        "Age": 0,
+        "Weight": 0,
+        "Height": 0,
+        "Sex": "string"
+      }
+    ],
+    "Children": [
+      {
+        "Interests": [
+          {
+            "Type": "string",
+            "Description": "string"
+          }
+        ],
+        "Pets": [
+          {
+            "Id": 0,
+            "Species": "string",
+            "Name": "string",
+            "Age": 0
+          }
+        ],
+        "Id": 0,
+        "FirstName": "string",
+        "LastName": "string",
+        "HairColor": "string",
+        "EyeColor": "string",
+        "Age": 0,
+        "Weight": 0,
+        "Height": 0,
+        "Sex": "string"
+      }
+    ],
+    "Pets": [
+      {
+        "Id": 0,
+        "Species": "string",
+        "Name": "string",
+        "Age": 0
+      }
+    ]
   }
 ]

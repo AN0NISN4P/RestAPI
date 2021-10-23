@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models;
@@ -22,33 +23,32 @@ namespace RestAPI.Data.Implementations
 			_fileContext.SaveChanges();
 		}
 
-		public async Task RemoveFamilyAsync(string familyName)
+		public async Task RemoveFamilyAsync(string streetName, int houseNumber)
 		{
-			Family family = _fileContext.Families.FirstOrDefault(f => f.Adults.First( ).LastName == familyName);
-			if (family == null)
+			Family f = _fileContext.Families.FirstOrDefault(f =>
+				f.StreetName == streetName && f.HouseNumber == houseNumber);
+
+			Console.WriteLine(f);
+			if (f == null)
 			{
 				return;
 			}
 
-			_fileContext.Families.Remove(family);
+			_fileContext.Families.Remove(f);
 			_fileContext.SaveChanges();
 		}
 
-		public async Task<Family> GetFamilyAsync(string streetName, int houseNumber)
+		public async Task<IList<Family>> GetFamiliesAsync()
 		{
-			Family family = _fileContext.Families.FirstOrDefault(f => f.StreetName == streetName && f.HouseNumber == houseNumber);
-			return family;
+			return _fileContext.Families;
 		}
 
-		public async Task<IList<Family>> GetFamilyAsync(string streetName)
-		{
-			IList<Family> families = _fileContext.Families.Where(f => f.StreetName == streetName).ToList();
-			return families;
-		}
+
 		public async Task UpdateFamilyAsync(Family updatedFamily)
 		{
 			// Get the old Family
-			Family oldFamily = GetFamilyAsync(updatedFamily.StreetName, updatedFamily.HouseNumber).Result;
+			Family oldFamily = _fileContext.Families.FirstOrDefault(f =>
+				f.StreetName == updatedFamily.StreetName && f.HouseNumber == updatedFamily.HouseNumber);
 			// Get Index in list of Family
 			int familyIdx = _fileContext.Families.IndexOf(oldFamily);
 			// Remove old Family
@@ -58,7 +58,12 @@ namespace RestAPI.Data.Implementations
 			_fileContext.SaveChanges();
 		}
 
-
+		public bool Exists(Family family)
+		{
+			Family v = _fileContext.Families.FirstOrDefault(f =>
+				f.StreetName == family.StreetName && f.HouseNumber == family.HouseNumber);
+			return v != null;
+		}
 
 		//public void NewAdult(Adult newAdult)
 		//{

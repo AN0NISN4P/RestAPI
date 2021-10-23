@@ -24,15 +24,18 @@ namespace RestAPI.Controllers
 		{
 			try
 			{
-				IList<Family> f;
-				if (houseNumber == null)
+				IList<Family> f = await _personHandler.GetFamiliesAsync();
+				if (street != null)
 				{
-					f = _personHandler.GetFamily(street);
+					f = f.Where(v => v.StreetName == street).ToList();
 				}
-				else
+
+				if (houseNumber != null)
 				{
-					f = _personHandler.GetFamily(street, (int) houseNumber);
+					f = f.Where(v => v.HouseNumber == houseNumber).ToList();
 				}
+
+				return Ok(f);
 			}
 			catch (Exception e)
 			{
@@ -42,27 +45,73 @@ namespace RestAPI.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<ActionResult> Delete()
+		[Route("{street}/{houseNumber:int}")] // THIS IS VERY IMPORTANT
+		public async Task<ActionResult> Delete([FromRoute] string street, [FromRoute] int houseNumber)
 		{
-			return Ok();
+			try
+			{
+				await _personHandler.RemoveFamilyAsync(street, houseNumber);
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return StatusCode(500, e.Message);
+			}
 		}
 
-		[HttpPost]
-		public async Task<ActionResult> Post([FromQuery] int? id)
+		[HttpPost] // TODO: Route så man kan ændre vejnavn / husnummer
+		public async Task<ActionResult> Post([FromBody] Family family)
 		{
-			return Ok();
+			try
+			{
+				bool exists = _personHandler.Exists(family);
+				if (exists)
+				{
+					await _personHandler.UpdateFamilyAsync(family);
+				}
+				else
+				{
+					await _personHandler.NewFamilyAsync(family);
+				}
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return StatusCode(500, e.Message);
+			}
 		}
 
-		[HttpPatch]
-		public async Task<ActionResult> Patch([FromQuery] int? id)
+		[HttpPatch] // TODO: Route så man kan ændre vejnavn / husnummer
+		public async Task<ActionResult> Patch([FromBody] Family family)
 		{
-			return Ok();
+			try
+			{
+				await _personHandler.UpdateFamilyAsync(family);
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return StatusCode(500, e.Message);
+			}
 		}
 
 		[HttpPut]
-		public async Task<ActionResult> Put([FromRoute] string street, [FromRoute] int houseNumber)
+		public async Task<ActionResult> Put([FromBody] Family family)
 		{
-			return Created("", null);
+			try
+			{
+				await _personHandler.NewFamilyAsync(family);
+				return Created($"{family.StreetName}/{family.HouseNumber}", family);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return StatusCode(500, e.Message);
+			}
 		}
 	}
 }

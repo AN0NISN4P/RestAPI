@@ -8,10 +8,10 @@ namespace RestAPI.Data
 	public interface IPersonHandler
 	{
 		Task NewFamilyAsync(Family newFamily);
-		Task RemoveFamilyAsync(string familyName);
-		Task<Family> GetFamilyAsync(string streetName, int houseNumber);
-		Task<IList<Family>> GetFamilyAsync(string streetName);
+		Task RemoveFamilyAsync(string streetName, int houseNumber);
+		Task<IList<Family>> GetFamiliesAsync();
 		Task UpdateFamilyAsync(Family updatedFamily);
+		bool Exists(Family family);
 
 		//void NewAdult(Adult newAdult);
 		//void RemoveAdult(int id);
