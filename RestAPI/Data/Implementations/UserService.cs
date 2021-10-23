@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SimpleAssignment1.Models;
 
-namespace SimpleAssignment1.Data.Implementations
+namespace RestAPI.Data.Implementations
 {
 	public class UserService : IUserService
 	{

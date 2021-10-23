@@ -1,6 +1,6 @@
 ﻿using SimpleAssignment1.Models;
 
-namespace SimpleAssignment1.Data
+namespace RestAPI.Data
 {
 	public interface IUserService
 	{

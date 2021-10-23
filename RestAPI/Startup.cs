@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using RestAPI.Data;
+using RestAPI.Data.Implementations;
 
 namespace RestAPI {
 	public class Startup
@@ -20,6 +22,8 @@ namespace RestAPI {
 		{
 			services.AddControllers();
 			services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "RestAPI", Version = "v1"}); });
+			services.AddScoped<IPersonHandler, PersonHandler>();
+			services.AddScoped<IUserService, UserService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
