@@ -104,7 +104,12 @@ namespace RestAPI.Controllers
 		{
 			try
 			{
-				await _personHandler.NewFamilyAsync(family);
+				bool alreadyExists = await _personHandler.NewFamilyAsync(family);
+				if (alreadyExists)
+				{
+					return Conflict();
+				}
+
 				return Created($"{family.StreetName}/{family.HouseNumber}", family);
 			}
 			catch (Exception e)
