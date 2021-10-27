@@ -88,19 +88,20 @@ namespace RestAPI.Data.Implementations
 		//	_fileContext.SaveChanges();
 		//}
 
-		//public void RemoveAdult(int id)
-		//{
-		//	Adult adultToRemove = _fileContext.Adults.First(adult => adult.Id == id);
-		//	int idx = _fileContext.Adults.IndexOf(adultToRemove);
-		//	_fileContext.Adults.RemoveAt(idx);
-		//	_fileContext.SaveChanges();
-		//}
+		public async Task<Adult> RemoveAdultAsync(int id)
+		{
+			Family family = _fileContext.Families.FirstOrDefault(f => f.Adults.Find(a => a.Id == id) != null);
+			if (family == null)
+			{
+				return null;
+			}
 
-		//public Adult GetAdult(int id)
-		//{
-		//	Adult a = _fileContext.Adults.FirstOrDefault(adult => adult.Id == id);
-		//	return a;
-		//}
+			Adult adult = family.Adults.Find(a => a.Id == id);
+			family.Adults.Remove(adult);
+
+			_fileContext.SaveChanges( );
+			return adult;
+		}
 
 		public async Task UpdateAdultAsync(Adult updatedAdult)
 		{

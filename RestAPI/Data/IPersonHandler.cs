@@ -13,9 +13,8 @@ namespace RestAPI.Data
 		Task UpdateFamilyAsync(Family updatedFamily);
 		bool Exists(Family family);
 
-		//void NewAdult(Adult newAdult);
-		//void RemoveAdult(int id);
-		//Adult GetAdult(int id);
+		//void NewAdult(Adult newAdult); // This would be dumb to implement, since an Adult can't be forced into a family
+		Task<Adult> RemoveAdultAsync(int id);
 		Task UpdateAdultAsync(Adult updatedAdult);
 		Task<IList<Adult>> GetAdultsAsync();
 	}

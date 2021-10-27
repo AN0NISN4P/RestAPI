@@ -32,12 +32,20 @@ namespace RestAPI.Controllers
 			return Ok(adults);
 		}
 
-		[HttpPatch][Route("{adultId:int}")]
+		[HttpPatch]
+		[Route("{adultId:int}")]
 		public async Task<ActionResult> UpdateAdult([FromRoute] int adultId, [FromBody] Adult updatedAdultInfo)
 		{
 			updatedAdultInfo.Id = adultId;
 			await _personHandler.UpdateAdultAsync(updatedAdultInfo);
 			return Ok();
+		}
+
+		[HttpDelete]
+		[Route("{adultId:int}")]
+		public async Task<ActionResult<Adult>> DeleteAdult([FromRoute] int adultId)
+		{
+			return Ok(await _personHandler.RemoveAdultAsync(adultId));
 		}
 	}
 }
