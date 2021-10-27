@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #c0c0c7;
 }
 
 a, .btn-link {
@@ -28,6 +29,10 @@ a, .btn-link {
 
 .validation-message {
     color: red;
+}
+
+.img-thumbnail {
+    background-color: #1b6ec2;
 }
 
 #blazor-error-ui {
